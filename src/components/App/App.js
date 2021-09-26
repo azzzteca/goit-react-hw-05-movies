@@ -10,7 +10,9 @@ export const App = () => {
   const [movies, setMovies] = useState(null);
 
   useEffect(() => {
-    fetch('')
+    fetch(
+      'https://api.themoviedb.org/3/trending/all/day?api_key=d7f38521886bf40bd20fcb4d0d1274a9',
+    )
       .then(response => {
         if (!response.ok) throw new Error();
         return response.json();
@@ -27,7 +29,7 @@ export const App = () => {
 
       <Switch>
         <Route exact path="/">
-          <HomeView movies={movies} />
+          {movies && <HomeView movies={movies} />}
         </Route>
 
         <Route path="/movies">
