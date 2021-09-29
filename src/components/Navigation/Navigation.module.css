@@ -1,3 +1,7 @@
+.list {
+  display: flex;
+  list-style: none;
+}
 .link {
   display: inline-block;
   text-decoration: none;
@@ -5,6 +9,10 @@
   font-weight: 500;
   color: #2a363b;
   font-size: 18px;
+}
+
+.link:hover {
+  color: red;
 }
 
 .activeLink {

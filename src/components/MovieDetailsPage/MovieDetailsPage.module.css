@@ -1,0 +1,38 @@
+.movieCard {
+  display: flex;
+  border-bottom: 1px solid #2a363b;
+}
+.goBackButton {
+  margin: 5px 0;
+  max-width: 200px;
+  height: 20px;
+}
+.movieThumb {
+  margin-right: 20px;
+  width: 200px;
+  height: auto;
+}
+
+.moviePoster {
+  width: inherit;
+  height: inherit;
+  /* width: 200px; */
+}
+
+.genresList {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+
+.genreItem:not(:last-child) {
+  margin-right: 20px;
+}
+
+.additionalInfo {
+  border-bottom: 1px solid #2a363b;
+}
+
+.additionalInfoLink:hover {
+  color: red;
+}
