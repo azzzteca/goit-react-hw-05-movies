@@ -2,17 +2,17 @@ import { useState, useEffect } from 'react';
 import { useParams, NavLink, Route, useHistory } from 'react-router-dom';
 import { MovieCastsView } from '../views/MovieCastsView';
 import { MovieReviewsView } from '../views/MovieReviewsView';
+import noPoster from '../../images/noPoster.jpg';
 import s from './MovieDetailsPage.module.css';
 
 export const MovieDetailsPage = () => {
   const [movie, setMovie] = useState(null);
-
   const { movieId } = useParams();
-
-  const history = useHistory();
+  const { goBack, push } = useHistory();
 
   function loggingHistory() {
-    history.goBack();
+    goBack();
+    // push('/');
   }
 
   const BASE_IMG_URL = 'https://image.tmdb.org/t/p/original';
@@ -29,8 +29,8 @@ export const MovieDetailsPage = () => {
         return response.json();
       })
       .then(data => {
-        console.log(data);
         setMovie(data);
+        console.log(movie.poster_path);
       })
       .catch(error => console.log(error));
   }, [movieId]);
@@ -45,7 +45,11 @@ export const MovieDetailsPage = () => {
           <div className={s.movieCard}>
             <div className={s.movieThumb}>
               <img
-                src={`${BASE_IMG_URL}${movie.poster_path}`}
+                src={
+                  movie.poster_path
+                    ? `${BASE_IMG_URL}${movie.poster_path}`
+                    : `${noPoster}`
+                }
                 alt={movie.name ?? movie.original_title}
                 className={s.moviePoster}
               />

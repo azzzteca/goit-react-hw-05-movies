@@ -1,0 +1,9 @@
+.form {
+  padding: 16px 0;
+  border-bottom: 1px solid #2a363b;
+}
+
+.input {
+  min-width: 300px;
+  margin-right: 5px;
+}

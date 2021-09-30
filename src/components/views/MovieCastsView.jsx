@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import noPhoto from '../../images/noPhoto.jpg';
 import s from './css/MovieCastsView.module.css';
 
 export function MovieCastsView({ url }) {
@@ -17,7 +18,9 @@ export function MovieCastsView({ url }) {
 
         return response.json();
       })
-      .then(data => setCasts(data))
+      .then(data => {
+        setCasts(data.cast);
+      })
       .catch(error => console.log(error));
   }, []);
 
@@ -26,12 +29,16 @@ export function MovieCastsView({ url }) {
       {casts && (
         <div>
           <ul>
-            {casts.cast.map(cast => {
+            {casts.map(cast => {
               return (
                 <div key={cast.id}>
                   <div>
                     <img
-                      src={`${url}${cast.profile_path}`}
+                      src={
+                        cast.profile_path
+                          ? `${url}${cast.profile_path}`
+                          : `${noPhoto}`
+                      }
                       className={s.castImg}
                       alt="Photo"
                     />
