@@ -57,7 +57,8 @@ export default function MovieDetailsPage() {
             </div>
             <div>
               <h2>
-                {movie.name ?? movie.original_title} {movie.release_date}
+                {movie.name ?? movie.original_title}{' '}
+                {movie.release_date.substring(0, 4)}
               </h2>
               <p>User score: {movie.vote_average * 10}</p>
               <h3>Overview</h3>
