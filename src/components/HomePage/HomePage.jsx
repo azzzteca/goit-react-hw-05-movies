@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import s from './HomePage.module.css';
 
-export const HomePage = () => {
+export default function HomePage() {
   const [movies, setMovies] = useState(null);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export const HomePage = () => {
         <h1>Trending today</h1>
       </div>
 
-      {movies && (
+      {movies ? (
         <ul>
           {movies.map(movie => {
             return (
@@ -41,7 +41,9 @@ export const HomePage = () => {
             );
           })}
         </ul>
+      ) : (
+        <h3>Oops ... some troubles</h3>
       )}
     </>
   );
-};
+}

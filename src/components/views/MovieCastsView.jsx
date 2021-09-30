@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import noPhoto from '../../images/noPhoto.jpg';
 import s from './css/MovieCastsView.module.css';
 
-export function MovieCastsView({ url }) {
+export default function MovieCastsView({ url }) {
   const [casts, setCasts] = useState(null);
   const { movieId } = useParams();
 
@@ -22,7 +22,7 @@ export function MovieCastsView({ url }) {
         setCasts(data.cast);
       })
       .catch(error => console.log(error));
-  }, []);
+  }, [movieId]);
 
   return (
     <>
@@ -40,7 +40,7 @@ export function MovieCastsView({ url }) {
                           : `${noPhoto}`
                       }
                       className={s.castImg}
-                      alt="Photo"
+                      alt=""
                     />
                   </div>
                   <li>

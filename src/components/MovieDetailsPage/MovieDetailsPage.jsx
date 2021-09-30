@@ -1,18 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, NavLink, Route, useHistory } from 'react-router-dom';
-import { MovieCastsView } from '../views/MovieCastsView';
-import { MovieReviewsView } from '../views/MovieReviewsView';
+// import MovieCastsView from '../views/MovieCastsView';
+// import MovieReviewsView from '../views/MovieReviewsView';
 import noPoster from '../../images/noPoster.jpg';
 import s from './MovieDetailsPage.module.css';
 
-export const MovieDetailsPage = () => {
+const MovieCastsView = lazy(() => import('../views/MovieCastsView'));
+const MovieReviewsView = lazy(() => import('../views/MovieReviewsView.jsx'));
+
+export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
-  const { goBack, push } = useHistory();
+  const history = useHistory();
 
   function loggingHistory() {
-    goBack();
-    // push('/');
+    history.goBack();
   }
 
   const BASE_IMG_URL = 'https://image.tmdb.org/t/p/original';
@@ -30,7 +32,6 @@ export const MovieDetailsPage = () => {
       })
       .then(data => {
         setMovie(data);
-        console.log(movie.poster_path);
       })
       .catch(error => console.log(error));
   }, [movieId]);
@@ -95,18 +96,19 @@ export const MovieDetailsPage = () => {
               </li>
             </ul>
           </div>
+          <Suspense fallback={<h2>Загружаем ...</h2>}>
+            <Route path="/movies/:movieId/casts">
+              <MovieCastsView url={BASE_IMG_URL} />
+            </Route>
 
-          <Route path="/movies/:movieId/casts">
-            <MovieCastsView url={BASE_IMG_URL} />
-          </Route>
-
-          <Route path="/movies/:movieId/reviews">
-            <MovieReviewsView />
-          </Route>
+            <Route path="/movies/:movieId/reviews">
+              <MovieReviewsView />
+            </Route>
+          </Suspense>
         </>
       ) : (
         <h3>Ooops, somting wrong</h3>
       )}
     </>
   );
-};
+}
