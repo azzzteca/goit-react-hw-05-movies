@@ -1,7 +1,5 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useParams, NavLink, Route, useHistory } from 'react-router-dom';
-// import MovieCastsView from '../views/MovieCastsView';
-// import MovieReviewsView from '../views/MovieReviewsView';
 import noPoster from '../../images/noPoster.jpg';
 import s from './MovieDetailsPage.module.css';
 
@@ -12,12 +10,11 @@ export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
   const history = useHistory();
+  const BASE_IMG_URL = 'https://image.tmdb.org/t/p/original';
 
   function loggingHistory() {
     history.goBack();
   }
-
-  const BASE_IMG_URL = 'https://image.tmdb.org/t/p/original';
 
   useEffect(() => {
     fetch(

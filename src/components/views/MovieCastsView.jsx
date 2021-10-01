@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import noPhoto from '../../images/noPhoto.jpg';
 import s from './css/MovieCastsView.module.css';
 
@@ -56,3 +57,7 @@ export default function MovieCastsView({ url }) {
     </>
   );
 }
+
+MovieCastsView.propTypes = {
+  url: PropTypes.string,
+};
