@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, NavLink, Route, useHistory } from 'react-router-dom';
 import noPoster from '../../images/noPoster.jpg';
 import s from './MovieDetailsPage.module.css';
@@ -57,7 +57,7 @@ export default function MovieDetailsPage() {
                 {movie.name ?? movie.original_title}{' '}
                 {movie.release_date.substring(0, 4)}
               </h2>
-              <p>User score: {movie.vote_average * 10}</p>
+              <p>User score: {movie.vote_average * 10} %</p>
               <h3>Overview</h3>
               <p>{movie.overview}</p>
               <h3>Genres</h3>
@@ -105,7 +105,10 @@ export default function MovieDetailsPage() {
           </Suspense>
         </>
       ) : (
-        <h3>Ooops, somting wrong</h3>
+        <>
+          <h3>Ooops, sorry .....</h3>
+          <h3>There is no info about this movie</h3>
+        </>
       )}
     </>
   );
