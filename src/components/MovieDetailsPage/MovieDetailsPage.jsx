@@ -1,19 +1,36 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { useParams, NavLink, Route, useHistory } from 'react-router-dom';
+import {
+  useParams,
+  NavLink,
+  Route,
+  useLocation,
+  useHistory,
+} from 'react-router-dom';
+import { clearLocalStorage } from '../servises/clearLocalStorage';
 import noPoster from '../../images/noPoster.jpg';
 import s from './MovieDetailsPage.module.css';
 
 const MovieCastsView = lazy(() => import('../views/MovieCastsView'));
 const MovieReviewsView = lazy(() => import('../views/MovieReviewsView.jsx'));
 
+clearLocalStorage();
+
 export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
   const history = useHistory();
+  const location = useLocation();
   const BASE_IMG_URL = 'https://image.tmdb.org/t/p/original';
 
-  function loggingHistory() {
-    history.goBack();
+  useEffect(() => {
+    if (!location.state) return;
+    localStorage.setItem('state', JSON.stringify(location.state));
+  });
+
+  function goBack() {
+    const goBack = JSON.parse(localStorage.getItem('state'));
+    history.push(goBack ?? '/');
+    clearLocalStorage();
   }
 
   useEffect(() => {
@@ -35,7 +52,7 @@ export default function MovieDetailsPage() {
 
   return (
     <>
-      <button type="button" className={s.goBackButton} onClick={loggingHistory}>
+      <button type="button" className={s.goBackButton} onClick={goBack}>
         Go back
       </button>
       {movie ? (

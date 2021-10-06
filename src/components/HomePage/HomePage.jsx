@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { clearLocalStorage } from '../servises/clearLocalStorage';
 import s from './HomePage.module.css';
 
 export default function HomePage() {
   const [movies, setMovies] = useState(null);
+
+  clearLocalStorage();
 
   useEffect(() => {
     fetch(
